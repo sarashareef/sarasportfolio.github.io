@@ -27,6 +27,7 @@
     .delay-4 { transition-delay: 0.4s; }
     .delay-5 { transition-delay: 0.5s; }
 
+    /* NAV */
     nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 22px 40px; background: var(--off-white); border-bottom: 1px solid transparent; transition: border-color .3s, box-shadow .3s; }
     nav.scrolled { border-bottom-color: rgba(0,0,0,0.08); box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
     .nav-logo { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 14px; color: var(--orange); letter-spacing: 0.04em; text-decoration: none; }
@@ -34,42 +35,132 @@
     .nav-links a { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--black); text-decoration: none; transition: color .2s; }
     .nav-links a:hover { color: var(--orange); }
 
-    #home { padding-top: 80px; min-height: 100vh; position: relative; overflow: hidden; background: var(--off-white); }
-    .hero-email { padding: 18px 40px 0; font-family: 'EB Garamond', serif; font-style: italic; font-size: 18px; color: var(--black); opacity: 0; animation: fadeSlideDown 1s cubic-bezier(.22,.68,0,1.2) 0.2s forwards; }
-    @keyframes fadeSlideDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 0.7; transform: translateY(0); } }
-    .hero-title-wrap { position: relative; padding: 0 20px; margin-top: -6px; }
-    .hero-title { font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(90px, 15.5vw, 215px); color: var(--orange); display: block; letter-spacing: -0.02em; line-height: 0.88; user-select: none; opacity: 0; transform: translateY(40px); }
+    /* ── HERO + INFO combined into one section ── */
+    #home {
+      padding-top: 80px;
+      background: var(--off-white);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Email line */
+    .hero-email {
+      position: relative;
+      z-index: 4;
+      padding: 18px 40px 0;
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: 18px;
+      color: var(--black);
+      opacity: 0;
+      animation: fadeSlideDown 1s cubic-bezier(.22,.68,0,1.2) 0.2s forwards;
+    }
+    @keyframes fadeSlideDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 0.7; transform: translateY(0); }
+    }
+
+    /* Big PORTFOLIO text — spans full width, text overlaps photo */
+    .hero-title-wrap {
+      position: relative;
+      z-index: 4;
+      padding: 0 20px;
+      margin-top: -8px;
+      pointer-events: none;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(100px, 16vw, 220px);
+      color: var(--orange);
+      display: block;
+      letter-spacing: -0.02em;
+      line-height: 0.88;
+      opacity: 0;
+      transform: translateY(40px);
+    }
     .hero-title.line1 { animation: heroIn 0.9s cubic-bezier(.22,.68,0,1.2) 0.35s forwards; }
     .hero-title.line2 { animation: heroIn 0.9s cubic-bezier(.22,.68,0,1.2) 0.55s forwards; }
     @keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
-    .hero-image-wrap { position: absolute; right: 0; bottom: 0; width: 42%; max-width: 580px; z-index: 2; opacity: 0; transform: translateX(40px); animation: heroImgIn 1s cubic-bezier(.22,.68,0,1.2) 0.7s forwards; }
+
+    /* Photo — absolutely positioned on right, tall, overlapped by text */
+    .hero-image-wrap {
+      position: absolute;
+      right: 0;
+      top: 100px;
+      width: 46%;
+      max-width: 600px;
+      z-index: 2;
+      opacity: 0;
+      transform: translateX(40px);
+      animation: heroImgIn 1s cubic-bezier(.22,.68,0,1.2) 0.7s forwards;
+    }
     @keyframes heroImgIn { to { opacity: 1; transform: translateX(0); } }
-    .hero-image-wrap img { width: 100%; display: block; object-fit: cover; }
+    .hero-image-wrap img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+      object-position: top;
+    }
 
-    #info { background: var(--off-white); padding: 100px 40px 80px; }
-    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1200px; margin: 0 auto; align-items: start; }
-    .info-text p { font-family: 'Playfair Display', serif; font-size: clamp(16px, 1.4vw, 20px); line-height: 1.7; }
-    .info-right { display: flex; flex-direction: column; gap: 16px; }
-    .info-photo { width: 100%; aspect-ratio: 4/5; object-fit: cover; object-position: top center; display: block; }
-    .info-name { font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(28px, 4vw, 52px); text-transform: uppercase; letter-spacing: -0.01em; }
-    .info-title { font-family: 'EB Garamond', serif; font-style: italic; font-size: clamp(16px, 1.6vw, 22px); color: var(--orange); }
+    /* ── INFO row: bio text left, name+title right, below the big title ── */
+    .info-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      padding: 40px 40px 80px;
+      position: relative;
+      z-index: 5;
+      max-width: 100%;
+    }
+    /* left col: bio paragraph */
+    .info-bio p {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(15px, 1.3vw, 19px);
+      line-height: 1.72;
+      color: var(--black);
+    }
+    /* right col: name + title, aligned under where the photo is */
+    .info-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      justify-content: flex-end;
+    }
+    .info-name {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: clamp(26px, 3.5vw, 48px);
+      text-transform: uppercase;
+      letter-spacing: -0.01em;
+      color: var(--black);
+    }
+    .info-title {
+      font-family: 'EB Garamond', serif;
+      font-style: italic;
+      font-size: clamp(16px, 1.5vw, 22px);
+      color: var(--orange);
+    }
 
-    #works { background: var(--gray-bg); padding: 70px 40px 80px; }
-    .works-label { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 14px; color: var(--orange); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
+    /* WORKS */
+    #works { background: var(--gray-bg); padding: 60px 40px 0; }
+    .works-label { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 14px; color: var(--orange); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 24px; }
     .works-body { position: relative; }
-    .works-scroll { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; height: 340px; }
+    .works-scroll { display: flex; gap: 12px; overflow-x: auto; scrollbar-width: none; height: 300px; }
     .works-scroll::-webkit-scrollbar { display: none; }
-    .work-item { flex: 0 0 auto; height: 340px; overflow: hidden; opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(.22,.68,0,1.2), transform 0.7s cubic-bezier(.22,.68,0,1.2); }
+    .work-item { flex: 0 0 auto; height: 300px; overflow: hidden; border-radius: 2px; opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(.22,.68,0,1.2), transform 0.7s cubic-bezier(.22,.68,0,1.2); }
     .work-item.visible { opacity: 1; transform: translateY(0); }
     .work-item img { height: 100%; width: auto; display: block; object-fit: cover; transition: transform .5s ease; }
     .work-item:hover img { transform: scale(1.05); }
-    .works-categories { position: absolute; bottom: 0; left: 0; right: 0; font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(42px, 7vw, 100px); color: var(--black); text-transform: uppercase; line-height: 0.92; letter-spacing: -0.02em; pointer-events: none; z-index: 3; padding: 0 0 8px 0; }
+    .works-categories { position: relative; z-index: 3; margin-top: -110px; font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(42px, 6.5vw, 95px); color: var(--black); text-transform: uppercase; line-height: 0.92; letter-spacing: -0.02em; padding-bottom: 60px; pointer-events: none; }
 
-    #creative { background: var(--gray-bg); padding: 60px 40px 100px; }
+    /* CREATIVE */
+    #creative { background: var(--gray-bg); padding: 20px 40px 100px; }
     .creative-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1200px; margin: 0 auto; align-items: center; }
     .creative-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top; display: block; }
     .creative-text p { font-family: 'Playfair Display', serif; font-size: clamp(16px, 1.4vw, 20px); line-height: 1.75; }
 
+    /* FOOTER */
     footer { background: var(--off-white); padding: 70px 40px 40px; }
     .footer-name { font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(28px, 4vw, 52px); text-transform: uppercase; letter-spacing: -0.01em; }
     .footer-email { font-family: 'EB Garamond', serif; font-style: italic; font-size: 22px; color: var(--orange); margin-top: 6px; }
@@ -82,13 +173,12 @@
 
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
-      .hero-image-wrap { width: 55%; }
-      #info { padding: 60px 20px; }
-      .info-grid { grid-template-columns: 1fr; }
-      #works { padding: 40px 20px 60px; }
-      .works-scroll { height: 220px; }
-      .work-item { height: 220px; }
-      .works-categories { font-size: clamp(32px, 9vw, 60px); }
+      .hero-image-wrap { width: 58%; top: 90px; }
+      .info-row { grid-template-columns: 1fr; padding: 30px 20px 60px; }
+      #works { padding: 40px 20px 0; }
+      .works-scroll { height: 200px; }
+      .work-item { height: 200px; }
+      .works-categories { font-size: clamp(32px, 9vw, 56px); margin-top: -70px; padding-bottom: 40px; }
       #creative { padding: 20px 20px 60px; }
       .creative-grid { grid-template-columns: 1fr; }
       footer { padding: 40px 20px 30px; }
@@ -106,30 +196,34 @@
   </ul>
 </nav>
 
+<!-- HERO + INFO: one section, photo only appears once -->
 <section id="home">
   <p class="hero-email">sarashareef54@gmail.com</p>
+
+  <!-- Big overlapping title -->
   <div class="hero-title-wrap">
     <span class="hero-title line1">PORTFOLIO</span>
     <span class="hero-title line2">PORTFOLIO</span>
   </div>
+
+  <!-- Photo on the right, overlapped by title text -->
   <div class="hero-image-wrap">
     <img src="images/IMG_7548.jpeg" alt="Sara Shareef" />
   </div>
-</section>
 
-<section id="info">
-  <div class="info-grid">
-    <div class="info-text reveal-left">
+  <!-- Bio + name sit below the title, side by side -->
+  <div class="info-row" id="info">
+    <div class="info-bio reveal-left">
       <p>I'm Sara, a developer and creative based in New Jersey. My background is in computer science, but I've recently started exploring design and quickly fell in love with it. What began as building simple websites for projects turned into a passion for creating visually engaging webpages. I'm still new to the design world, but I've been experimenting more with layouts, colors, and user experience as I build and design more sites.</p>
     </div>
-    <div class="info-right reveal-right">
-      <img class="info-photo" src="images/IMG_7548.jpeg" alt="Sara Shareef" />
+    <div class="info-meta reveal-right delay-1">
       <div class="info-name">Sara Shareef</div>
       <div class="info-title">Designer, Web Developer, Engineer</div>
     </div>
   </div>
 </section>
 
+<!-- SAMPLE WORKS -->
 <section id="works">
   <div class="works-label reveal">SAMPLE WORKS</div>
   <div class="works-body">
@@ -140,14 +234,15 @@
       <div class="work-item delay-4"><img src="images/IMG_6816.jpeg" alt="Mountain Photography" /></div>
       <div class="work-item delay-5"><img src="images/IMG_0636.jpeg" alt="Campus Photography" /></div>
     </div>
-    <div class="works-categories reveal delay-2">
-      PERSONAL WEB<br>
-      PROJECTS&nbsp;&nbsp;&nbsp;FLYER DESIGN<br>
+    <div class="works-categories reveal delay-1">
+      PERSONAL WEB PROJECTS<br>
+      FLYER DESIGN<br>
       PHOTOGRAPHY
     </div>
   </div>
 </section>
 
+<!-- CREATIVE BIO -->
 <section id="creative">
   <div class="creative-grid">
     <img class="creative-photo reveal-scale" src="images/IMG_0636.jpeg" alt="Sara on campus steps" />
@@ -157,6 +252,7 @@
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-name reveal">Sara Shareef</div>
   <div class="footer-email reveal delay-1">sarashareef54@gmail.com</div>
