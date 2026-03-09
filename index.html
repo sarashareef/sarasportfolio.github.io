@@ -35,22 +35,20 @@
     .nav-links a { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--black); text-decoration: none; transition: color .2s; }
     .nav-links a:hover { color: var(--orange); }
 
-    /* ── HERO + INFO combined into one section ── */
+    /* ── HERO ── */
     #home {
       padding-top: 80px;
       background: var(--off-white);
       position: relative;
       overflow: hidden;
+      /* tall enough to show full photo + info row below */
+      min-height: 100vh;
     }
 
-    /* Email line */
     .hero-email {
-      position: relative;
-      z-index: 4;
+      position: relative; z-index: 4;
       padding: 18px 40px 0;
-      font-family: 'EB Garamond', serif;
-      font-style: italic;
-      font-size: 18px;
+      font-family: 'EB Garamond', serif; font-style: italic; font-size: 18px;
       color: var(--black);
       opacity: 0;
       animation: fadeSlideDown 1s cubic-bezier(.22,.68,0,1.2) 0.2s forwards;
@@ -60,89 +58,76 @@
       to   { opacity: 0.7; transform: translateY(0); }
     }
 
-    /* Big PORTFOLIO text — spans full width, text overlaps photo */
+    /* PORTFOLIO text — z-index 4, renders over photo */
     .hero-title-wrap {
-      position: relative;
-      z-index: 4;
+      position: relative; z-index: 4;
       padding: 0 20px;
       margin-top: -8px;
       pointer-events: none;
     }
     .hero-title {
-      font-family: 'Playfair Display', serif;
-      font-weight: 900;
-      font-size: clamp(100px, 16vw, 220px);
+      font-family: 'Playfair Display', serif; font-weight: 900;
+      font-size: clamp(90px, 14vw, 200px);
       color: var(--orange);
       display: block;
-      letter-spacing: -0.02em;
-      line-height: 0.88;
-      opacity: 0;
-      transform: translateY(40px);
+      letter-spacing: -0.02em; line-height: 0.88;
+      opacity: 0; transform: translateY(40px);
     }
     .hero-title.line1 { animation: heroIn 0.9s cubic-bezier(.22,.68,0,1.2) 0.35s forwards; }
     .hero-title.line2 { animation: heroIn 0.9s cubic-bezier(.22,.68,0,1.2) 0.55s forwards; }
     @keyframes heroIn { to { opacity: 1; transform: translateY(0); } }
 
-    /* Photo — absolutely positioned on right, tall, overlapped by text */
+    /* Photo — pushed down so face is fully visible below the two title lines */
     .hero-image-wrap {
       position: absolute;
       right: 0;
-      top: 100px;
-      width: 46%;
-      max-width: 600px;
-      z-index: 2;
+      /* top offset = nav(80px) + email(~50px) + 2 title lines (~2×0.88×200px≈352px) − overlap we want */
+      /* set to ~280px so image starts just below line 1, face is clear */
+      top: 280px;
+      width: 44%;
+      max-width: 580px;
+      z-index: 2;           /* behind text */
       opacity: 0;
       transform: translateX(40px);
       animation: heroImgIn 1s cubic-bezier(.22,.68,0,1.2) 0.7s forwards;
     }
     @keyframes heroImgIn { to { opacity: 1; transform: translateX(0); } }
     .hero-image-wrap img {
-      width: 100%;
-      display: block;
-      object-fit: cover;
-      object-position: top;
+      width: 100%; display: block;
+      object-fit: cover; object-position: top;
+      max-height: 75vh;
     }
 
-    /* ── INFO row: bio text left, name+title right, below the big title ── */
+    /* ── INFO ROW — always left of photo, never underneath it ── */
     .info-row {
+      position: relative; z-index: 5;
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      /* left col takes ~54% (outside the photo) right col fills remaining */
+      grid-template-columns: 54% 1fr;
       gap: 40px;
-      padding: 40px 40px 80px;
-      position: relative;
-      z-index: 5;
-      max-width: 100%;
+      padding: 36px 40px 80px;
     }
-    /* left col: bio paragraph */
     .info-bio p {
       font-family: 'Playfair Display', serif;
-      font-size: clamp(15px, 1.3vw, 19px);
-      line-height: 1.72;
-      color: var(--black);
+      font-size: clamp(15px, 1.25vw, 18px);
+      line-height: 1.72; color: var(--black);
     }
-    /* right col: name + title, aligned under where the photo is */
+    /* name + title sit in the left half too so they never go under the photo */
     .info-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      justify-content: flex-end;
+      display: flex; flex-direction: column; gap: 10px;
+      justify-content: flex-start;
     }
     .info-name {
-      font-family: 'Playfair Display', serif;
-      font-weight: 900;
-      font-size: clamp(26px, 3.5vw, 48px);
-      text-transform: uppercase;
-      letter-spacing: -0.01em;
-      color: var(--black);
+      font-family: 'Playfair Display', serif; font-weight: 900;
+      font-size: clamp(24px, 3vw, 44px);
+      text-transform: uppercase; letter-spacing: -0.01em; color: var(--black);
     }
     .info-title {
-      font-family: 'EB Garamond', serif;
-      font-style: italic;
-      font-size: clamp(16px, 1.5vw, 22px);
-      color: var(--orange);
+      font-family: 'EB Garamond', serif; font-style: italic;
+      font-size: clamp(15px, 1.4vw, 21px); color: var(--orange);
     }
 
-    /* WORKS */
+    /* ── WORKS ── */
     #works { background: var(--gray-bg); padding: 60px 40px 0; }
     .works-label { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 14px; color: var(--orange); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 24px; }
     .works-body { position: relative; }
@@ -152,7 +137,18 @@
     .work-item.visible { opacity: 1; transform: translateY(0); }
     .work-item img { height: 100%; width: auto; display: block; object-fit: cover; transition: transform .5s ease; }
     .work-item:hover img { transform: scale(1.05); }
-    .works-categories { position: relative; z-index: 3; margin-top: -110px; font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(42px, 6.5vw, 95px); color: var(--black); text-transform: uppercase; line-height: 0.92; letter-spacing: -0.02em; padding-bottom: 60px; pointer-events: none; }
+
+    /* text pulled up only ~60px into the bottom of the image strip */
+    .works-categories {
+      position: relative; z-index: 3;
+      margin-top: -60px;          /* small overlap — just clips the very bottom of images */
+      font-family: 'Playfair Display', serif; font-weight: 900;
+      font-size: clamp(38px, 5.5vw, 82px);
+      color: var(--black); text-transform: uppercase;
+      line-height: 0.92; letter-spacing: -0.02em;
+      padding-bottom: 60px;
+      pointer-events: none;
+    }
 
     /* CREATIVE */
     #creative { background: var(--gray-bg); padding: 20px 40px 100px; }
@@ -171,14 +167,19 @@
     .footer-links a:hover { opacity: 0.65; }
     .footer-links span { font-family: 'EB Garamond', serif; font-style: italic; font-size: 17px; color: var(--orange); opacity: 0.5; }
 
+    @media (max-width: 900px) {
+      .hero-image-wrap { width: 50%; top: 240px; }
+      .info-row { grid-template-columns: 52% 1fr; }
+    }
     @media (max-width: 768px) {
       nav { padding: 16px 20px; }
-      .hero-image-wrap { width: 58%; top: 90px; }
+      .hero-title { font-size: clamp(72px, 17vw, 130px); }
+      .hero-image-wrap { width: 58%; top: 180px; }
       .info-row { grid-template-columns: 1fr; padding: 30px 20px 60px; }
       #works { padding: 40px 20px 0; }
       .works-scroll { height: 200px; }
       .work-item { height: 200px; }
-      .works-categories { font-size: clamp(32px, 9vw, 56px); margin-top: -70px; padding-bottom: 40px; }
+      .works-categories { font-size: clamp(28px, 8vw, 50px); margin-top: -40px; padding-bottom: 40px; }
       #creative { padding: 20px 20px 60px; }
       .creative-grid { grid-template-columns: 1fr; }
       footer { padding: 40px 20px 30px; }
@@ -196,22 +197,20 @@
   </ul>
 </nav>
 
-<!-- HERO + INFO: one section, photo only appears once -->
 <section id="home">
   <p class="hero-email">sarashareef54@gmail.com</p>
 
-  <!-- Big overlapping title -->
   <div class="hero-title-wrap">
     <span class="hero-title line1">PORTFOLIO</span>
     <span class="hero-title line2">PORTFOLIO</span>
   </div>
 
-  <!-- Photo on the right, overlapped by title text -->
+  <!-- photo starts at 280px so face is below the title lines -->
   <div class="hero-image-wrap">
     <img src="images/IMG_7548.jpeg" alt="Sara Shareef" />
   </div>
 
-  <!-- Bio + name sit below the title, side by side -->
+  <!-- bio + name/title stay in the left 54%, never touch the photo column -->
   <div class="info-row" id="info">
     <div class="info-bio reveal-left">
       <p>I'm Sara, a developer and creative based in New Jersey. My background is in computer science, but I've recently started exploring design and quickly fell in love with it. What began as building simple websites for projects turned into a passion for creating visually engaging webpages. I'm still new to the design world, but I've been experimenting more with layouts, colors, and user experience as I build and design more sites.</p>
@@ -223,7 +222,6 @@
   </div>
 </section>
 
-<!-- SAMPLE WORKS -->
 <section id="works">
   <div class="works-label reveal">SAMPLE WORKS</div>
   <div class="works-body">
@@ -234,6 +232,7 @@
       <div class="work-item delay-4"><img src="images/IMG_6816.jpeg" alt="Mountain Photography" /></div>
       <div class="work-item delay-5"><img src="images/IMG_0636.jpeg" alt="Campus Photography" /></div>
     </div>
+    <!-- only -60px overlap so text sits near the bottom of images, not mid-way -->
     <div class="works-categories reveal delay-1">
       PERSONAL WEB PROJECTS<br>
       FLYER DESIGN<br>
@@ -242,7 +241,6 @@
   </div>
 </section>
 
-<!-- CREATIVE BIO -->
 <section id="creative">
   <div class="creative-grid">
     <img class="creative-photo reveal-scale" src="images/IMG_0636.jpeg" alt="Sara on campus steps" />
@@ -252,7 +250,6 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="footer-name reveal">Sara Shareef</div>
   <div class="footer-email reveal delay-1">sarashareef54@gmail.com</div>
