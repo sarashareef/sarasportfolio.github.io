@@ -56,15 +56,16 @@
 
     #works { background: var(--gray-bg); padding: 70px 40px 80px; }
     .works-label { font-family: 'Playfair Display', serif; font-weight: 700; font-size: 14px; color: var(--orange); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 16px; }
-    .works-categories { font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(38px, 6vw, 88px); color: var(--black); text-transform: uppercase; line-height: 0.95; letter-spacing: -0.02em; margin-bottom: 48px; }
-    .works-scroll { display: flex; gap: 16px; overflow-x: auto; padding-bottom: 8px; scrollbar-width: none; }
+    .works-body { position: relative; }
+    .works-scroll { display: flex; gap: 0; overflow-x: auto; scrollbar-width: none; height: 340px; }
     .works-scroll::-webkit-scrollbar { display: none; }
-    .work-item { flex: 0 0 auto; height: 290px; overflow: hidden; opacity: 0; transform: translateY(40px); transition: opacity 0.7s cubic-bezier(.22,.68,0,1.2), transform 0.7s cubic-bezier(.22,.68,0,1.2); }
+    .work-item { flex: 0 0 auto; height: 340px; overflow: hidden; opacity: 0; transform: translateY(30px); transition: opacity 0.7s cubic-bezier(.22,.68,0,1.2), transform 0.7s cubic-bezier(.22,.68,0,1.2); }
     .work-item.visible { opacity: 1; transform: translateY(0); }
     .work-item img { height: 100%; width: auto; display: block; object-fit: cover; transition: transform .5s ease; }
     .work-item:hover img { transform: scale(1.05); }
+    .works-categories { position: absolute; bottom: 0; left: 0; right: 0; font-family: 'Playfair Display', serif; font-weight: 900; font-size: clamp(42px, 7vw, 100px); color: var(--black); text-transform: uppercase; line-height: 0.92; letter-spacing: -0.02em; pointer-events: none; z-index: 3; padding: 0 0 8px 0; }
 
-    #creative { background: var(--gray-bg); padding: 20px 40px 100px; }
+    #creative { background: var(--gray-bg); padding: 60px 40px 100px; }
     .creative-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1200px; margin: 0 auto; align-items: center; }
     .creative-photo { width: 100%; aspect-ratio: 3/4; object-fit: cover; object-position: top; display: block; }
     .creative-text p { font-family: 'Playfair Display', serif; font-size: clamp(16px, 1.4vw, 20px); line-height: 1.75; }
@@ -85,7 +86,9 @@
       #info { padding: 60px 20px; }
       .info-grid { grid-template-columns: 1fr; }
       #works { padding: 40px 20px 60px; }
-      .work-item { height: 200px; }
+      .works-scroll { height: 220px; }
+      .work-item { height: 220px; }
+      .works-categories { font-size: clamp(32px, 9vw, 60px); }
       #creative { padding: 20px 20px 60px; }
       .creative-grid { grid-template-columns: 1fr; }
       footer { padding: 40px 20px 30px; }
@@ -110,7 +113,7 @@
     <span class="hero-title line2">PORTFOLIO</span>
   </div>
   <div class="hero-image-wrap">
-    <img src="images/hero.jpeg" alt="Sara Shareef" />
+    <img src="images/IMG_7548.jpeg" alt="Sara Shareef" />
   </div>
 </section>
 
@@ -120,7 +123,7 @@
       <p>I'm Sara, a developer and creative based in New Jersey. My background is in computer science, but I've recently started exploring design and quickly fell in love with it. What began as building simple websites for projects turned into a passion for creating visually engaging webpages. I'm still new to the design world, but I've been experimenting more with layouts, colors, and user experience as I build and design more sites.</p>
     </div>
     <div class="info-right reveal-right">
-      <img class="info-photo" src="images/hero.jpeg" alt="Sara Shareef" />
+      <img class="info-photo" src="images/IMG_7548.jpeg" alt="Sara Shareef" />
       <div class="info-name">Sara Shareef</div>
       <div class="info-title">Designer, Web Developer, Engineer</div>
     </div>
@@ -129,23 +132,25 @@
 
 <section id="works">
   <div class="works-label reveal">SAMPLE WORKS</div>
-  <div class="works-categories reveal delay-1">
-    PERSONAL WEB<br>
-    PROJECTS&nbsp;&nbsp;&nbsp;FLYER DESIGN<br>
-    PHOTOGRAPHY
-  </div>
-  <div class="works-scroll">
-    <div class="work-item delay-1"><img src="images/screenshot-web.png" alt="Personal Web Project" /></div>
-    <div class="work-item delay-2"><img src="images/screenshot-flyer.png" alt="DPO Flyer" /></div>
-    <div class="work-item delay-3"><img src="images/screenshot-instagram.png" alt="Photography" /></div>
-    <div class="work-item delay-4"><img src="images/mountain.jpeg" alt="Mountain Photography" /></div>
-    <div class="work-item delay-5"><img src="images/campus.jpeg" alt="Campus Photography" /></div>
+  <div class="works-body">
+    <div class="works-scroll">
+      <div class="work-item delay-1"><img src="images/web.jpg" alt="Personal Web Project" /></div>
+      <div class="work-item delay-2"><img src="images/flyer.jpg" alt="DPO Flyer" /></div>
+      <div class="work-item delay-3"><img src="images/feed.jpg" alt="Photography Feed" /></div>
+      <div class="work-item delay-4"><img src="images/IMG_6816.jpeg" alt="Mountain Photography" /></div>
+      <div class="work-item delay-5"><img src="images/IMG_0636.jpeg" alt="Campus Photography" /></div>
+    </div>
+    <div class="works-categories reveal delay-2">
+      PERSONAL WEB<br>
+      PROJECTS&nbsp;&nbsp;&nbsp;FLYER DESIGN<br>
+      PHOTOGRAPHY
+    </div>
   </div>
 </section>
 
 <section id="creative">
   <div class="creative-grid">
-    <img class="creative-photo reveal-scale" src="images/campus.jpeg" alt="Sara on campus steps" />
+    <img class="creative-photo reveal-scale" src="images/IMG_0636.jpeg" alt="Sara on campus steps" />
     <div class="creative-text reveal-right delay-2">
       <p>When I'm not designing websites or creating flyers, I enjoy exploring different creative outlets like photography and visual storytelling. I've designed promotional flyers for Delta Phi Omega and built personal websites where I experiment with layout, color, and user experience. Outside of design, I love taking photos around campus and in the city, capturing everyday moments and interesting perspectives that inspire my creative work.</p>
     </div>
